@@ -38,7 +38,7 @@ export function Sidebar({ user, activeSection, collapsed = false, onNavigate, on
   return (
     <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
       <div className="sidebar-brand">
-        <div className="logo">CV</div>
+        <div className="logo">FS</div>
         <div className="sidebar-brand-text">
           <strong>CRM Rekrutacje</strong>
           <span>Fullstack Studio</span>

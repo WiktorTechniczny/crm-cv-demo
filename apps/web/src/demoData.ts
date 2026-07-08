@@ -29,7 +29,7 @@ export const demoAuthResponse: AuthResponse = {
   user: {
     id: "user-admin",
     email: "admin@example.test",
-    name: "Administrator",
+    name: "Admin CRM",
     role: "ADMIN"
   }
 };
@@ -43,7 +43,7 @@ const companies = [
 ];
 
 const owners = [
-  { id: "user-admin", name: "Administrator", email: "admin@example.test" },
+  { id: "user-admin", name: "Admin CRM", email: "admin@example.test" },
   { id: "user-ops", name: "Opiekun CRM", email: "opiekun@example.test" }
 ];
 
@@ -104,7 +104,7 @@ let candidates: Candidate[] = [
     status: "Nowy",
     stage: "Nowy",
     ownerId: "user-admin",
-    ownerName: "Administrator",
+    ownerName: "Admin CRM",
     aiScore: 84,
     aiNote: "Doswiadczenie w prowadzeniu malego zespolu, obsludze klienta i raportowaniu zmian.",
     appliedAt: "2026-07-02T08:20:00.000Z",
@@ -162,7 +162,7 @@ let candidates: Candidate[] = [
     status: "Rozmowa",
     stage: "Oferta",
     ownerId: "user-admin",
-    ownerName: "Administrator",
+    ownerName: "Admin CRM",
     aiScore: 91,
     aiNote: "Mocny profil rozmow telefonicznych i pracy na celach. Dobra kandydatka do szybkiej decyzji.",
     appliedAt: "2026-07-03T11:15:00.000Z",
@@ -220,13 +220,13 @@ let candidates: Candidate[] = [
     status: "Wykluczony",
     stage: "Czarna lista",
     ownerId: "user-admin",
-    ownerName: "Administrator",
+    ownerName: "Admin CRM",
     aiScore: 20,
     aiNote: "Przyklad rekordu wykluczonego z glownej listy.",
     appliedAt: "2026-07-01T07:30:00.000Z",
     isBlacklisted: true,
     blacklistedAt: "2026-07-05T12:00:00.000Z",
-    blacklistedByName: "Administrator",
+    blacklistedByName: "Admin CRM",
     blacklistReason: "Przykladowy powod wykluczenia",
     documents: [document("doc-005", "marta-golebiowska-cv.pdf")],
     rawFields: {
@@ -240,7 +240,7 @@ let candidates: Candidate[] = [
   })
 ];
 
-const generatedCandidates = Array.from({ length: 3940 }, (_, index) => {
+const generatedCandidates = Array.from({ length: 0 }, (_, index) => {
   const n = index + 6;
   const name = demoNames[index % demoNames.length];
   const company = companies[index % companies.length];
@@ -276,7 +276,7 @@ const generatedCandidates = Array.from({ length: 3940 }, (_, index) => {
     appliedAt: `2026-07-${appliedDay}T${String(8 + (index % 9)).padStart(2, "0")}:15:00.000Z`,
     isBlacklisted,
     blacklistedAt: isBlacklisted ? `2026-07-${appliedDay}T12:00:00.000Z` : null,
-    blacklistedByName: isBlacklisted ? "Administrator" : null,
+    blacklistedByName: isBlacklisted ? "Admin CRM" : null,
     blacklistReason: isBlacklisted ? "Przykladowe wykluczenie z procesu" : null,
     documents: hasCv ? [document(`doc-${String(n).padStart(3, "0")}`, `${name.toLowerCase().replace(/\s+/g, "-")}-cv.pdf`)] : [],
     rawFields: {
@@ -290,11 +290,11 @@ const generatedCandidates = Array.from({ length: 3940 }, (_, index) => {
   });
 });
 
-candidates = [...candidates, ...generatedCandidates];
+candidates = [...candidates.slice(0, 3), ...generatedCandidates];
 
 let auditLogs: AuditLog[] = [
   audit("audit-001", "app-003", "status", "Kontakt", "Rozmowa"),
-  audit("audit-002", "app-002", "ownerId", "Administrator", "Opiekun CRM")
+  audit("audit-002", "app-002", "ownerId", "Admin CRM", "Opiekun CRM")
 ];
 
 let notes: Record<string, CandidateNote[]> = {
@@ -302,7 +302,7 @@ let notes: Record<string, CandidateNote[]> = {
     {
       id: "note-001",
       body: "Umowic rozmowe kwalifikacyjna i sprawdzic doswiadczenie w pracy na celach.",
-      authorName: "Administrator",
+      authorName: "Admin CRM",
       createdAt: now
     }
   ]
@@ -436,7 +436,7 @@ export function demoAddNote(applicationId: string, body: string): CandidateNote 
   const note = {
     id: `note-${Date.now()}`,
     body,
-    authorName: "Administrator",
+    authorName: "Admin CRM",
     createdAt: new Date().toISOString()
   };
   notes[applicationId] = [note, ...(notes[applicationId] ?? [])];
@@ -662,7 +662,7 @@ function audit(id: string, applicationId: string, fieldName: string, previousVal
   return {
     id,
     userId: "user-admin",
-    userName: "Administrator",
+    userName: "Admin CRM",
     userEmail: "admin@example.test",
     entityType: "Application",
     entityId: applicationId,

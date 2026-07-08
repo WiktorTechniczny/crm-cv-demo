@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LockKeyhole, UserPlus } from "lucide-react";
+import { Database, LockKeyhole, UserPlus } from "lucide-react";
 import { fetchAuthConfig, login, register, setToken } from "../api.js";
 import type { User } from "../types.js";
 
@@ -62,7 +62,7 @@ export function AuthPanel({ onAuthenticated }: AuthPanelProps) {
     <main className="auth-screen">
       <form className="auth-card" onSubmit={submit} key={mode}>
         <div className="brand-mark">
-          <div className="logo">CV</div>
+          <Database size={28} />
           <div>
             <strong>CRM Rekrutacje</strong>
             <span>CRM kandydatów</span>

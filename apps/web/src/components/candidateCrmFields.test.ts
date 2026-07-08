@@ -12,7 +12,7 @@ const candidate = {
   companyId: "company-1",
   companyName: "Nova Contact",
   jobId: "job-1",
-  jobTitle: "Protetyk słuchu",
+  jobTitle: "Specjalista ds. obsługi klienta",
   source: "PRACUJ",
   status: "Nowy",
   stage: "Nowy",
@@ -45,7 +45,7 @@ describe("candidateCrmFieldValue", () => {
   it("wyciąga najważniejsze pola operacyjne CRM", () => {
     expect(candidateCrmFieldValue(candidate, "appliedAt")).toBe("10.06.2026");
     expect(candidateCrmFieldValue(candidate, "companyName")).toBe("Nova Contact");
-    expect(candidateCrmFieldValue(candidate, "jobTitle")).toBe("Protetyk słuchu");
+    expect(candidateCrmFieldValue(candidate, "jobTitle")).toBe("Specjalista ds. obsługi klienta");
     expect(candidateCrmFieldValue(candidate, "voivodeship")).toBe("podlaskie");
     expect(candidateCrmFieldValue(candidate, "city")).toBe("Białystok");
     expect(candidateCrmFieldValue(candidate, "fullName")).toBe("Anna Kowalska");
@@ -117,13 +117,13 @@ describe("candidateCrmFieldValue", () => {
   it("pokazuje w tabeli CRM kanoniczna nazwe stanowiska zamiast tytulu ogloszenia z miastem", () => {
     const olxCandidate = {
       ...candidate,
-      jobTitle: "Konsultant ds. Umawiania Wizyt | Torun \u2013 Centrum",
+      jobTitle: "Konsultant klienta | Torun \u2013 Centrum",
       rawFields: {
-        "Tytu\u0142 Og\u0142oszenia": "Konsultant ds. Umawiania Wizyt | Torun \u2013 Centrum"
+        "Tytu\u0142 Og\u0142oszenia": "Konsultant klienta | Torun \u2013 Centrum"
       }
     } as Candidate;
 
-    expect(candidateCrmFieldValue(olxCandidate, "jobTitle")).toBe("Konsultant ds. Umawiania Wizyt");
+    expect(candidateCrmFieldValue(olxCandidate, "jobTitle")).toBe("Konsultant klienta");
   });
 
   it("nie pokazuje technicznego tekstu Pobierz CV jako linku do dokumentu", () => {
